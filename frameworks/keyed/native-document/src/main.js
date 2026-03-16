@@ -14,8 +14,8 @@ const Attributes = {
 const TableRowBuilder = useCache(($binder) => {
 
   const isSelected = $binder.class((item) => AppService.selected.when(item.id));
-  const id = $binder.value((item) => item.id);
-  const label = $binder.value((item) => item.label);
+  const id = $binder.text('id');
+  const label = $binder.text('label');
 
   const rowClick = $binder.attach((_, item) => AppService.select(item.id));
   const removeClick = $binder.attach((_, item) => AppService.remove(item.id));
