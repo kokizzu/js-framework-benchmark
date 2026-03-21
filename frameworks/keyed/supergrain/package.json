@@ -1,0 +1,16 @@
+{
+  "name": "js-framework-benchmark-supergrain",
+  "version": "1.0.0",
+  "description": "Supergrain - reactive store with fine-grained reactivity",
+  "js-framework-benchmark": {
+    "frameworkVersionFromPackage": "react",
+    "frameworkHomeURL": "https://github.com/commoncurriculum/supergrain"
+  },
+  "scripts": {
+    "build-prod": "echo 'pre-built'"
+  },
+  "dependencies": {
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
+  }
+}
