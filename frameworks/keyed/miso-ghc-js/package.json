@@ -10,7 +10,7 @@
   "js-framework-benchmark": {
     "frameworkVersion": "1.9.0",
     "frameworkHomeURL": "https://haskell-miso.org/",
-    "customURL": "/",
+    "customURL": "/dist-bundle",
     "issues": [
       1139
     ]
