@@ -701,7 +701,7 @@ function union2(obj, updates) {
   return Object.assign({}, obj, updates);
 }
 var delegatedEvents = [
-  { name: "click", capture: false }
+  { name: "click", capture: true }
 ];
 var m = (tag, obj) => {
   return vnode(union2({ tag }, obj));
@@ -726,8 +726,7 @@ var eventActionStop = function(f) {
 };
 var viewJumbotron = function() {
   return m("div", {
-    classList: new Set(["Jumbotron"]),
-    props: {},
+    classList: new Set(["jumbotron"]),
     children: [
       m("div", {
         classList: new Set(["row"]),
@@ -736,12 +735,22 @@ var viewJumbotron = function() {
             classList: new Set(["col-md-6"]),
             children: [m("h1", { children: [vtext("miso.js-1.9.0.0-keyed")] })]
           }),
-          btn("Create 1,000 rows", "run"),
-          btn("Create 10,000 rows", "runlots"),
-          btn("Append 1,000 rows", "add"),
-          btn("Update every 10th row", "update"),
-          btn("Clear", "clear"),
-          btn("Swap Rows", "swaprows")
+          m("div", {
+            classList: new Set(["col-md-6"]),
+            children: [
+              m("div", {
+                classList: new Set(["row"]),
+                children: [
+                  btn("Create 1,000 rows", "run"),
+                  btn("Create 10,000 rows", "runlots"),
+                  btn("Append 1,000 rows", "add"),
+                  btn("Update every 10th row", "update"),
+                  btn("Clear", "clear"),
+                  btn("Swap Rows", "swaprows")
+                ]
+              })
+            ]
+          })
         ]
       })
     ]
