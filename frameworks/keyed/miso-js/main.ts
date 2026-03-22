@@ -26,13 +26,23 @@ var render = () => {
   currentVTree = newTree;
 };
 
+var eventAction = function (f) {
+  return {
+    options: { preventDefault: false, stopPropagation: false },
+    runEvent: function (e) {
+      f(e);
+      render();
+    },
+  };
+}
+
 var eventActionStop = function (f) {
   return {
-      options: { preventDefault: false, stopPropagation: true },
-      runEvent: function (e) {
-        f(e);
-        render();
-      },
+    options: { preventDefault: false, stopPropagation: true },
+    runEvent: function (e) {
+      f(e);
+      render();
+    },
   };
 }
 
@@ -181,7 +191,7 @@ var btn = (msg, op) =>
           type: "button",
           id: op,
         },
-        events: { captures: { click: eventActionStop(dispatch(op, op)) }, bubbles: {} },
+        events: { captures: { click: eventAction(dispatch(op, op)) }, bubbles: {} },
         children: [vtext(msg)],
       }),
     ],
@@ -197,7 +207,7 @@ var viewTable = () => {
 var makeRow = (x) => {
   return m("tr", {
     key: x.id,
-    events: { captures: { click: eventActionStop(dispatch("select", x.id)) }, bubbles: {} },
+    events: { captures: { click: eventAction(dispatch("select", x.id)) }, bubbles: {} },
     classList: new Set([x.id === model.selected ? "danger" : ""]),
     children: [
       m("td", {
@@ -218,10 +228,15 @@ var makeRow = (x) => {
         children: [
           m("a", {
             classList: new Set(["remove"]),
-            events: { captures: { click: eventActionStop(dispatch("delete", x.id)) }, bubbles: {} },
-              children: [m("span", { props: { "aria-hidden": true }, classList: new Set(["remove", "glyphicon", "glyphicon-remove"])})],
-          }),
-        ],
+            children: [
+              m("span", {
+               props: { "aria-hidden": true },
+               events: { captures: { click: eventActionStop(dispatch("delete", x.id)) }, bubbles: {} },
+               classList: new Set(["remove", "glyphicon", "glyphicon-remove"]),
+              })
+            ]
+          })
+        ]
       }),
       m("td", {
         classList: new Set(["col-md-6"]),

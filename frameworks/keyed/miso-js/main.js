@@ -715,6 +715,15 @@ var render = () => {
   diff(currentVTree, newTree, document.body, drawingContext);
   currentVTree = newTree;
 };
+var eventAction = function(f) {
+  return {
+    options: { preventDefault: false, stopPropagation: false },
+    runEvent: function(e) {
+      f(e);
+      render();
+    }
+  };
+};
 var eventActionStop = function(f) {
   return {
     options: { preventDefault: false, stopPropagation: true },
@@ -856,7 +865,7 @@ var btn = (msg, op) => m("div", {
         type: "button",
         id: op
       },
-      events: { captures: { click: eventActionStop(dispatch2(op, op)) }, bubbles: {} },
+      events: { captures: { click: eventAction(dispatch2(op, op)) }, bubbles: {} },
       children: [vtext(msg)]
     })
   ]
@@ -870,7 +879,7 @@ var viewTable = () => {
 var makeRow = (x) => {
   return m("tr", {
     key: x.id,
-    events: { captures: { click: eventActionStop(dispatch2("select", x.id)) }, bubbles: {} },
+    events: { captures: { click: eventAction(dispatch2("select", x.id)) }, bubbles: {} },
     classList: new Set([x.id === model.selected ? "danger" : ""]),
     children: [
       m("td", {
@@ -891,8 +900,13 @@ var makeRow = (x) => {
         children: [
           m("a", {
             classList: new Set(["remove"]),
-            events: { captures: { click: eventActionStop(dispatch2("delete", x.id)) }, bubbles: {} },
-            children: [m("span", { props: { "aria-hidden": true }, classList: new Set(["remove", "glyphicon", "glyphicon-remove"]) })]
+            children: [
+              m("span", {
+                props: { "aria-hidden": true },
+                events: { captures: { click: eventActionStop(dispatch2("delete", x.id)) }, bubbles: {} },
+                classList: new Set(["remove", "glyphicon", "glyphicon-remove"])
+              })
+            ]
           })
         ]
       }),
