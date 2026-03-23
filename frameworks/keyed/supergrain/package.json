@@ -1,16 +1,24 @@
 {
-  "name": "js-framework-benchmark-supergrain",
+  "name": "js-framework-benchmark-react-supergrain",
   "version": "1.0.0",
-  "description": "Supergrain - reactive store with fine-grained reactivity",
-  "js-framework-benchmark": {
-    "frameworkVersionFromPackage": "react",
-    "frameworkHomeURL": "https://github.com/commoncurriculum/supergrain"
-  },
+  "private": true,
   "scripts": {
-    "build-prod": "echo 'pre-built'"
+    "build-prod": "vite build"
   },
   "dependencies": {
+    "@supergrain/core": "1.0.4",
+    "@supergrain/react": "1.0.4",
     "react": "19.0.0",
     "react-dom": "19.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "4.5.2",
+    "typescript": "5.8.3",
+    "vite": "6.3.5"
+  },
+  "js-framework-benchmark": {
+    "frameworkVersionFromPackage": "react",
+    "frameworkHomeURL": "https://github.com/commoncurriculum/supergrain",
+    "customURL": "/dist"
   }
 }
