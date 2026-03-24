@@ -11,6 +11,8 @@ I'll give you the number of the PR on github you should review and merge.
 1. Check that no branch `merge-pr-{number}` exists. If it does forcible delete that branch.
 2. Check out the PR into a new branch named `merge-pr-{number}` using `gh pr checkout {PR-number} -b merge-pr-{number}`. Do not create the branch with `git checkout -b` beforehand. Verify you are on the correct branch using `git branch`.
 
+**Important**: After checkout, rely exclusively on `gh pr diff {PR-number} --name-only` to determine what the PR changes. Do NOT use `git log master..HEAD` or `git diff master..HEAD` — the remote branch may have extra commits beyond the PR HEAD that would produce misleading results.
+
 # Review PR
 1. Check if the PR looks valid. Use `gh pr diff {PR-number} --name-only` to get the list of changed files in the PR. Changes in the PR must only concern subfolders of frameworks and no other directory. Reasonable modifications to the root `.gitignore` (e.g. adding build artifact patterns for a new framework's toolchain) are acceptable exceptions. Always print the result of that check.
 2. PRs for implementations of the benchmark (subdirectories of the framework folders) should not modify files in webdriver-ts, the root directory or webdriver-ts-results. Reasonable modifications to the root `.gitignore` are an acceptable exception.
