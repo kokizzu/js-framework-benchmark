@@ -17,7 +17,7 @@
     "vite": "6.3.5"
   },
   "js-framework-benchmark": {
-    "frameworkVersionFromPackage": "react",
+    "frameworkVersionFromPackage": "react:@supergrain/core",
     "frameworkHomeURL": "https://github.com/commoncurriculum/supergrain",
     "customURL": "/dist"
   }
