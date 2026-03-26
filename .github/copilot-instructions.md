@@ -8,6 +8,7 @@ ssh-add /home/stefan/.ssh/id_ed25519_github_hetzner"
 2. Check that no branch `merge-pr-{number}` exists. If it does forcible delete that branch. Create a new branch using the naming convention `merge-pr-{number}`
 3. Check out the PR into that branch
 4. Check if the PR looks valid. Use `gh pr diff {PR-number} --name-only` to get the list of changed files in the PR. Changes in the PR must only concern subfolders of frameworks and no other directory. Always print the result of that check.
+A change to the root .gitignore might be acceptable. Please ask me if you observe such changes whether they should be kept.
 5. You must compute a list of folders that are affected by the PR. Can be a single folder or can be many folders. Example: If the files "package.json" and "package-lock.json" in frameworks/keyed/angular and "package.json" in "frameworks/non-keyed/react" are changed the list is "keyed/angular non-keyed/react", so you leave out the frameworks directory and only report the directory names. This list in the argument for the next step.
 Always print the list.
 Check if there are changed to files in the webdriver-ts folder (e.g. webdriver-ts/results.json). If so make sure to eliminate those changes by using `git checkout` to restore the original versions such they don't end in the main branch when merging.
