@@ -14,7 +14,7 @@ I'll give you the number of the PR on github you should review and merge.
 **Important**: After checkout, rely exclusively on `gh pr diff {PR-number} --name-only` to determine what the PR changes. Do NOT use `git log master..HEAD` or `git diff master..HEAD` — the remote branch may have extra commits beyond the PR HEAD that would produce misleading results.
 
 # Review PR
-1. Check if the PR looks valid. Use `gh pr diff {PR-number} --name-only` to get the list of changed files in the PR. Changes in the PR must only concern subfolders of frameworks and no other directory. Reasonable modifications to the root `.gitignore` (e.g. adding build artifact patterns for a new framework's toolchain) are acceptable exceptions. Always print the result of that check.
+1. Check if the PR looks valid. Use `gh pr diff {PR-number} --name-only` to get the list of changed files in the PR. Changes in the PR must only concern subfolders of frameworks and no other directory. Reasonable modifications to the root like `.gitignore` (e.g. adding build artifact patterns for a new framework's toolchain) are acceptable exceptions. Always print the result of that check.
 2. PRs for implementations of the benchmark (subdirectories of the framework folders) should not modify files in webdriver-ts, the root directory or webdriver-ts-results. Reasonable modifications to the root `.gitignore` are an acceptable exception.
 3. For implementations of the benchmark there must be no pre-install or post-install scripts in package.json
 4. Check if the rendering library is available via npm and github. If not report a warning.
