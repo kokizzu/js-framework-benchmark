@@ -22,6 +22,7 @@
   },
   "license": "Apache-2.0",
   "scripts": {
+    "build-prod": "echo This is a no-op. The generated javascript is already provided in dist-bundle.",
     "build": "nix develop .#wasm --command bash -c 'make all'"
   },
   "keywords": [

@@ -10,7 +10,7 @@
   "js-framework-benchmark": {
     "frameworkVersion": "1.9.0.0",
     "frameworkHomeURL": "https://haskell-miso.org/",
-    "customURL": "/",
+    "customURL": "/"
   },
   "homepage": "https://github.com/krausest/js-framework-benchmark",
   "repository": {
@@ -19,6 +19,7 @@
   },
   "license": "Apache-2.0",
   "scripts": {
+    "build-prod": "echo This is a no-op. The generated javascript is already provided.",
     "build": "bun build --outfile=main.js main.ts --target=browser",
     "watch": "tsc --project tsconfig.lib.json --watch"
   },
