@@ -1,6 +1,7 @@
 import { createStore, startBatch, endBatch } from "@supergrain/core";
 import { tracked, For, provideStore, useComputed } from "@supergrain/react";
 import { useCallback, useRef } from "react";
+import { flushSync } from "react-dom";
 import { createRoot } from "react-dom/client";
 
 // --- Data Generation ---
@@ -39,19 +40,7 @@ const adjectives = [
   "expensive",
   "fancy",
 ];
-const colours = [
-  "red",
-  "yellow",
-  "blue",
-  "green",
-  "pink",
-  "brown",
-  "purple",
-  "brown",
-  "white",
-  "black",
-  "orange",
-];
+const colours = ["red", "yellow", "blue", "green", "pink", "brown", "purple", "brown", "white", "black", "orange"];
 const nouns = [
   "table",
   "chair",
@@ -99,6 +88,7 @@ export interface AppState {
 
 export interface RowProps {
   item: RowData;
+  store: AppState;
   onSelect: (id: number) => void;
   onRemove: (id: number) => void;
 }
@@ -155,7 +145,9 @@ export const remove = (id: number) => {
 };
 
 export const select = (id: number) => {
-  store.selected = id;
+  flushSync(() => {
+    store.selected = id;
+  });
 };
 
 // --- React Components ---
@@ -168,9 +160,9 @@ const Button = ({ id, cb, title }: { id: string; cb: () => void; title: string }
   </div>
 );
 
-export const Row = tracked(({ item, onSelect, onRemove }: RowProps) => {
-  const store = Store.useStore();
-  const isSelected = useComputed(() => store.selected === item.id);
+export const Row = tracked(({ item, store, onSelect, onRemove }: RowProps) => {
+  const id = item.id;
+  const isSelected = useComputed(() => store.selected === id);
   return (
     <tr className={isSelected ? "danger" : ""}>
       <td className="col-md-1">{item.id}</td>
@@ -215,7 +207,7 @@ export const App = tracked(() => {
         <tbody ref={tbodyRef}>
           <For each={store.data} parent={tbodyRef}>
             {(item: RowData) => (
-              <Row key={item.id} item={item} onSelect={handleSelect} onRemove={handleRemove} />
+              <Row key={item.id} item={item} store={store} onSelect={handleSelect} onRemove={handleRemove} />
             )}
           </For>
         </tbody>
@@ -233,7 +225,7 @@ if (typeof window !== "undefined") {
     root.render(
       <Store.Provider>
         <App />
-      </Store.Provider>,
+      </Store.Provider>
     );
   }
 }
