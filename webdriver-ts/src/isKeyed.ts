@@ -249,7 +249,6 @@ export async function checkTRcorrect(page: Page): Promise<boolean> {
 }
 
 async function runBench(
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   frameworkNames: string[] // Not used in the function, but is used when calling the function in other files
 ) {
   let runFrameworks;

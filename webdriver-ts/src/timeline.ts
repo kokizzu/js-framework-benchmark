@@ -251,7 +251,7 @@ export async function computeResultsCPU(
     }
   }
   let lastCommit = allCommitsAfterClick.at(-1);
-  if (lastCommit === undefined || commit === undefined) {
+  if (lastCommit === undefined || commit === undefined) {
     throw "unexpected situation. allCommitsAfterClick and  commit must not be empty";
   }  
   let maxDeltaBetweenCommits = (lastCommit.ts - allCommitsAfterClick[0].ts)/1000.0;

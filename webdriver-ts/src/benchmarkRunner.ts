@@ -121,7 +121,6 @@ async function runBenchmakLoop(
   framework: FrameworkData,
   benchmarkInfo: CPUBenchmarkInfo | MemBenchmarkInfo,
   benchmarkOptions: BenchmarkOptions,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   plausibilityCheck: PlausibilityCheck
 ): Promise<{ errors: string[]; warnings: string[] }> {
   let warnings: string[] = [];
