@@ -19,7 +19,11 @@ const CompareRow = ({ comparison, compareWith }: Props) => {
     const isComparing = compareWith === framework;
 
     const handleToggleComparing = () => {
-      isComparing ? stopCompare(framework) : compare(framework);
+      if (isComparing) {
+        stopCompare(framework);
+      } else {
+        compare(framework);
+      }
     };
 
     return (

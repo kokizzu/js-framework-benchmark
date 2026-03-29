@@ -25,8 +25,8 @@ const KnownIssuesList = () => {
 };
 
 const App = () => {
-  // eslint-disable-next-line no-constant-condition
   const version = "Chrome 146.0.7680.165"
+  // eslint-disable-next-line no-constant-condition
   const disclaimer = false ? (
     <div>
       <h2>js-framework-benchmark results for {version}</h2>
@@ -66,7 +66,7 @@ const App = () => {
         to compute the overall result.
       </p>
       <p>
-        Starting with chrome 137 we're benchmarking the non-keyed implementations only for even chrome versions.
+        Starting with chrome 137 we&apos;re benchmarking the non-keyed implementations only for even chrome versions.
       </p>
       <main>
         <SelectionToolbar showDurationSelection={true} />
