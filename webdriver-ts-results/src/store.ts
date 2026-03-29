@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import { jStat } from "jstat";
-import { knownIssues } from "@/helpers/issues";
 import { frameworks as rawFrameworks, benchmarks as rawBenchmarks, results as rawResults } from "./results";
 import {
   Benchmark,
@@ -82,7 +81,6 @@ interface State {
   sortKey: string;
   displayMode: DisplayMode;
   compareWith: CompareWith;
-  categories: Set<number>;
   cpuDurationMode: CpuDurationMode;
 }
 
@@ -95,7 +93,6 @@ interface Actions {
   selectFramework: (framework: Framework, add: boolean) => void;
   selectAllFrameworks: (frameworkType: FrameworkType, add: boolean) => void;
   selectUnflaggedFrameworks: (frameworkType: FrameworkType) => void;
-  selectCategory: (categoryId: number, add: boolean) => void;
   selectBenchmark: (benchmark: Benchmark, add: boolean) => void;
   selectAllBenchmarks: (benchmarkType: BenchmarkType, add: boolean) => void;
   selectDisplayMode: (displayMode: DisplayMode) => void;
@@ -115,7 +112,6 @@ function updateResultTable({
   sortKey,
   displayMode,
   compareWith,
-  categories,
   cpuDurationMode,
 }: State) {
   return {
@@ -129,7 +125,6 @@ function updateResultTable({
       sortKey,
       displayMode,
       compareWith[FrameworkType.KEYED],
-      categories,
       cpuDurationMode
     ),
     [FrameworkType.NON_KEYED]: new ResultTableData(
@@ -142,7 +137,6 @@ function updateResultTable({
       sortKey,
       displayMode,
       compareWith[FrameworkType.NON_KEYED],
-      categories,
       cpuDurationMode
     ),
   };
@@ -210,7 +204,6 @@ const preInitialState: State = {
     [FrameworkType.KEYED]: undefined,
     [FrameworkType.NON_KEYED]: undefined,
   },
-  categories: new Set(knownIssues.map((issue) => issue.number)),
   cpuDurationMode: CpuDurationMode.TOTAL,
 };
 
@@ -275,17 +268,6 @@ export const useRootStore = create<State & Actions>((set, get) => ({
     }
 
     const t = { ...get(), selectedFrameworks: newSelectedFramework };
-    return set(() => ({
-      ...t,
-      resultTables: updateResultTable(t),
-    }));
-  },
-  selectCategory: (categoryId: number, add: boolean) => {
-    const categories = new Set(get().categories);
-
-    add ? categories.add(categoryId) : categories.delete(categoryId);
-
-    const t = { ...get(), categories };
     return set(() => ({
       ...t,
       resultTables: updateResultTable(t),

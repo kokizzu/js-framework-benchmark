@@ -3,28 +3,24 @@ import { FrameworkType } from "@/Common";
 import { knownIssues } from "@/helpers/issues";
 import ResultTable from "@/components/ResultTable";
 import SelectionToolbar from "@/components/SelectionToolbar";
-import { List, Typography } from "antd";
+import { Card } from "antd";
 
 const KnownIssuesList = () => {
   const data = knownIssues;
 
   return (
-    <List
-      header={<h2>Known issues and notes</h2>}
-      bordered
-      className="known-issues"
-      dataSource={data}
-      renderItem={(issue) => (
-        <List.Item>
-          <Typography.Text className="known-issues__issue-code">
+    <Card title={<h2>Known issues and notes</h2>} className="known-issues">
+      <ul>
+        {data.map((issue) => (
+          <li key={issue.number}>
             <a id={issue.number.toFixed()} href={issue.link}>
               {issue.number}
-            </a>
-          </Typography.Text>{" "}
-          {issue.text}
-        </List.Item>
-      )}
-    />
+            </a>{" "}
+            {issue.text}
+          </li>
+        ))}
+      </ul>
+    </Card>
   );
 };
 
