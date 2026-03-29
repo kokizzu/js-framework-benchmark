@@ -7,9 +7,7 @@
     "frameworkVersionFromPackage": "@thyn/core",
     "frameworkHomeURL": "https://thyn.dev",
     "customURL": "/dist",
-    "issues": [
-      801, 702
-    ]
+    "issues": []
   },
   "scripts": {
     "build-prod": "vite build"
