@@ -1,5 +1,4 @@
 import { defineConfig } from "vite";
-import tsconfigPaths from "vite-tsconfig-paths";
 import react from "@vitejs/plugin-react";
 
 // https://vitejs.dev/config/
@@ -9,11 +8,16 @@ export default defineConfig({
     assetsDir: "",
     rollupOptions: {
       output: {
-        manualChunks: {
-          chartjs: ["chart.js", "@sgratzl/chartjs-chart-boxplot"],
+        manualChunks(id) {
+          if (id.includes("chart.js") || id.includes("@sgratzl/chartjs-chart-boxplot")) {
+            return "chartjs";
+          }
         },
       },
     },
   },
-  plugins: [react(), tsconfigPaths()],
+  resolve: {
+    tsconfigPaths: true,
+  },
+  plugins: [react()],
 });
