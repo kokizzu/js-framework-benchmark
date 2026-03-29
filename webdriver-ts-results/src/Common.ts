@@ -129,7 +129,6 @@ export class TableResultValueEntry {
     public bgColor: string,
     public textColor: string,
     public statisticResult: StatisticResult,
-    // eslint-disable-next-line unicorn/no-useless-undefined
     public statisticallySignificantFactor: string | number | undefined = undefined
   ) {}
 }
