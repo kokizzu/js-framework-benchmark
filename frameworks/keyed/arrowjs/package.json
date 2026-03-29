@@ -4,7 +4,8 @@
   "description": "ArrowJs demo",
   "js-framework-benchmark": {
     "frameworkVersion": "1.0.0-alpha.9",
-    "frameworkHomeURL": "https://www.arrow-js.com/"
+    "frameworkHomeURL": "https://www.arrow-js.com/",
+    "language": "JavaScript"
   },
   "scripts": {
     "dev": "exit 0",

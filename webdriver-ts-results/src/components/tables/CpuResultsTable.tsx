@@ -85,6 +85,14 @@ const CpuResultsTable = ({ data, currentSortKey, sortBy }: Props) => {
           ))}
         </tr>
       </thead>
+      <thead>
+        <tr>
+          <th>Language</th>
+          {data.frameworks.map((f) => (
+            <th key={f.name}>{f.language}</th>
+          ))}
+        </tr>
+      </thead>
       <tbody>
         {resultsCPU.results.map((resultsForBenchmark, benchIdx) => (
           <ValueResultRow

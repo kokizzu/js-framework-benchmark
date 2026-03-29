@@ -24,6 +24,7 @@ const mappedFrameworks = rawFrameworks.map((f) => ({
   dir: f.dir,
   displayname: removeKeyedSuffix(f.name),
   issues: f.issues ?? [],
+  language: (f as Record<string, unknown>).language as string ?? "",
   type: f.keyed ? FrameworkType.KEYED : FrameworkType.NON_KEYED,
   frameworkHomeURL: f.frameworkHomeURL,
 }));

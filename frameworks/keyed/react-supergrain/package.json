@@ -19,6 +19,7 @@
   "js-framework-benchmark": {
     "frameworkVersionFromPackage": "react:@supergrain/core",
     "frameworkHomeURL": "https://github.com/commoncurriculum/supergrain",
-    "customURL": "/dist"
+    "customURL": "/dist",
+    "language": "TypeScript"
   }
 }

@@ -6,7 +6,8 @@
   "js-framework-benchmark": {
     "frameworkVersionFromPackage": "vitarx",
     "frameworkHomeURL": "https://vitarx.cn/",
-    "customURL": "/dist"
+    "customURL": "/dist",
+    "language": "JavaScript"
   },
   "scripts": {
     "dev": "vite --force",

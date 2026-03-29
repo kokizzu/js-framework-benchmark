@@ -10,7 +10,8 @@
   "js-framework-benchmark": {
     "frameworkVersion": "1.9.0.0",
     "frameworkHomeURL": "https://haskell-miso.org/",
-    "customURL": "/"
+    "customURL": "/",
+    "language": "TypeScript"
   },
   "homepage": "https://github.com/krausest/js-framework-benchmark",
   "repository": {

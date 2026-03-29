@@ -6,7 +6,8 @@
   "js-framework-benchmark": {
     "frameworkVersionFromPackage": "vuact",
     "frameworkHomeURL": "https://www.npmjs.com/package/vuact",
-    "customURL": "/dist"
+    "customURL": "/dist",
+    "language": "JavaScript"
   },
   "scripts": {
     "dev": "vite",

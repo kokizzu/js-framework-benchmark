@@ -8,7 +8,8 @@
   "js-framework-benchmark": {
     "customURL": "/dist/",
     "frameworkVersion": "0.1.1",
-    "frameworkHomeURL": "https://github.com/timlouw/thane"
+    "frameworkHomeURL": "https://github.com/timlouw/thane",
+    "language": "TypeScript"
   },
   "scripts": {
     "build": "thane build --entry ./main.ts --out ./dist --assets ./assets --html ./index.html --base /frameworks/keyed/thane/dist/",

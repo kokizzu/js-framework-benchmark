@@ -34,6 +34,7 @@ export interface Framework {
   dir: string;
   type: FrameworkType;
   issues: number[];
+  language: string;
   frameworkHomeURL: string;
   displayname: string;
 }
