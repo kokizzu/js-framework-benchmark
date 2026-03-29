@@ -93,10 +93,12 @@ async function runBenchmakLoopSize(
     let res = await forkAndCallBenchmark(framework, benchmarkInfo, benchmarkOptions);
     if (Array.isArray(res.result)) {
       results = results.concat(res.result as SizeBenchmarkResult[]);
-    } else {
+    } else if (res.result !== undefined) {
       results.push(res.result);
     }
-    warnings = warnings.concat(res.warnings);
+    if (res.warnings) {
+      warnings = warnings.concat(res.warnings);
+    }
     if (res.error) {
       errors.push(`Executing ${framework.uri} and benchmark ${benchmarkInfo.id} failed: ` + res.error);
     }
@@ -149,7 +151,9 @@ async function runBenchmakLoop(
     } else if (res.result !== undefined) {
       results.push(res.result);
     }
-    warnings = warnings.concat(res.warnings);
+    if (res.warnings) {
+      warnings = warnings.concat(res.warnings);
+    }
     if (res.error) {
       console.log(`Executing ${framework.uri} and benchmark ${benchmarkInfo.id} failed: ` + res.error);
       errors.push(`Executing ${framework.uri} and benchmark ${benchmarkInfo.id} failed: ` + res.error);
@@ -184,7 +188,7 @@ async function runBench(
   let errors: string[] = [];
   let warnings: string[] = [];
 
-  let restart: string;
+  let restart: string | undefined = undefined;
   let index = runFrameworks.findIndex((f) => f.fullNameWithKeyedAndVersion === restart);
   if (index > -1) {
     runFrameworks = runFrameworks.slice(index);
@@ -335,7 +339,7 @@ async function main() {
     puppeteerSleep: args.puppeteerSleep ?? 0,
   };
 
-  config.PUPPETEER_WAIT_MS = benchmarkOptions.puppeteerSleep;
+  config.PUPPETEER_WAIT_MS = benchmarkOptions.puppeteerSleep ?? 0;
 
   if (args.count) {
     benchmarkOptions.numIterationsForCPUBenchmarks = args.count;

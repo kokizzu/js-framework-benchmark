@@ -228,7 +228,7 @@ export async function checkTRcorrect(page: Page): Promise<boolean> {
 
   // span in third td
   let span = await page.$("tbody>tr:nth-of-type(1000)>td:nth-of-type(3)>a>span");
-  if (!(await assertClassesContained(span as ElementHandle<HTMLElement>, ["glyphicon", "glyphicon-remove"], "span in a in third td"))) {
+  if (!span || !(await assertClassesContained(span as ElementHandle<HTMLElement>, ["glyphicon", "glyphicon-remove"], "span in a in third td"))) {
     return false;
   }
   // console.log("names", await span.evaluate(e => e.getAttributeNames()));
@@ -281,7 +281,7 @@ async function runBench(
         console.log("ERROR: Framework " + framework.fullNameWithKeyedAndVersion + " html is not correct");
         allCorrect = false;
       }
-      let str = init(framework.shadowRootName);
+      let str = init(framework.shadowRootName ?? "");
       await page.evaluate(str);
       if (framework.useShadowRoot) {
         await page.evaluate(`window.nonKeyedDetector_setUseShadowDom("${framework.shadowRootName}");`);
