@@ -6,6 +6,7 @@ export default defineConfig({
   base: "",
   build: {
     assetsDir: "",
+    chunkSizeWarningLimit: 2000,
     rollupOptions: {
       output: {
         manualChunks(id) {

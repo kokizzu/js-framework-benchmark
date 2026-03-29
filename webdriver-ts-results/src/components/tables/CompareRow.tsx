@@ -1,4 +1,4 @@
-import { Framework, TableResultComparisonEntry } from "@/Common";
+import type { Framework, TableResultComparisonEntry } from "@/Common";
 import { useRootStore } from "@/store";
 
 interface Props {
