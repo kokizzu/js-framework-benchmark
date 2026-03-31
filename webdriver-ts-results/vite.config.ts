@@ -7,12 +7,16 @@ export default defineConfig({
   build: {
     assetsDir: "",
     chunkSizeWarningLimit: 2000,
-    rollupOptions: {
+    rolldownOptions: {
       output: {
-        manualChunks(id) {
-          if (id.includes("chart.js") || id.includes("@sgratzl/chartjs-chart-boxplot")) {
-            return "chartjs";
-          }
+        codeSplitting: {
+          minSize: 1000,
+          groups: [
+            {
+              name: "chartjs",
+              test: /chart\.js|@sgratzl[\\/]chartjs-chart-boxplot/,
+            },
+          ],
         },
       },
     },
