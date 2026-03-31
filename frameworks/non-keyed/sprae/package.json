@@ -8,7 +8,7 @@
   },
   "type": "module",
   "scripts": {
-    "build-prod": "rollup -c --environment BUILD:production"
+    "build-prod": "cp node_modules/sprae/dist/sprae.js src/sprae.js"
   },
   "license": "Apache-2.0",
   "repository": {
@@ -17,10 +17,5 @@
   },
   "dependencies": {
     "sprae": "13.3.0"
-  },
-  "devDependencies": {
-    "@rollup/plugin-node-resolve": "15.3.0",
-    "@rollup/plugin-terser": "0.4.4",
-    "rollup": "4.28.1"
   }
 }
