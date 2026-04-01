@@ -28,9 +28,9 @@ const add = () => {
   },
   clear = () => {
     selectedIndex = -1;
-    ids = [];
-    labels = [];
-    views = [];
+    ids.length = 0;
+    labels.length = 0;
+    views.length = 0;
     data.version++;
   },
   partialUpdate = () => {
@@ -64,73 +64,64 @@ const add = () => {
   };
 
 function createRowView(id, label, selected) {
-  return html`<tr class="${selected ? 'danger' : false}"><td class="col-md-1">${id}</td><td class="col-md-4"><a>${label}</a></td><td class="col-md-1"><a><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td><td class="col-md-6"></td></tr>`.key(id);
+  return html`<tr class="${selected ? 'danger' : false}"><td class="col-md-1">${id}</td><td class="col-md-4"><a @click="${selectRow}">${label}</a></td><td class="col-md-1"><a @click="${removeRow}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td><td class="col-md-6"></td></tr>`.key(id);
 }
 
-async function replaceData(count) {
+function replaceData(count) {
   selectedIndex = -1;
-  if (ids.length) {
-    ids = [];
-    labels = [];
-    views = [];
-    data.version++;
-    await Promise.resolve();
-  }
-  [ids, labels, views] = buildData(count);
+  buildData(count);
   data.version++;
 }
 
-function handleRowClick(event) {
-  const cell = event.target instanceof Element
-    ? event.target.closest('td')
-    : null;
-  if (!cell) return;
-  const index = cell.cellIndex;
-  if (index !== 1 && index !== 2) return;
-  const row = cell.parentElement;
-  if (!(row instanceof HTMLTableRowElement)) return;
-  const idx = row.sectionRowIndex;
-  if (idx < 0 || idx >= ids.length) return;
-  if (index === 1) {
-    if (selectedIndex === idx) return;
-    const previousIndex = selectedIndex;
-    selectedIndex = idx;
-    if (previousIndex > -1) {
-      views[previousIndex] = createRowView(ids[previousIndex], labels[previousIndex], false);
-    }
-    views[idx] = createRowView(ids[idx], labels[idx], true);
-    data.version++;
-    return;
-  }
-  if (index === 2) {
-    if (idx === selectedIndex) {
-      selectedIndex = -1;
-    } else if (selectedIndex > idx) selectedIndex--;
-    ids.splice(idx, 1);
-    labels.splice(idx, 1);
-    views.splice(idx, 1);
-    data.version++;
-  }
+function getRowIndex(event) {
+  const target = event.currentTarget;
+  if (!(target instanceof HTMLAnchorElement)) return -1;
+  const row = target.parentElement && target.parentElement.parentElement;
+  if (!(row instanceof HTMLTableRowElement)) return -1;
+  const index = row.sectionRowIndex;
+  return index < 0 || index >= ids.length ? -1 : index;
 }
 
-function buildData(count, ids = [], labels = [], views = [], start = 0) {
+function selectRow(event) {
+  const idx = getRowIndex(event);
+  if (idx < 0 || selectedIndex === idx) return;
+  const previousIndex = selectedIndex;
+  selectedIndex = idx;
+  if (previousIndex > -1) {
+    views[previousIndex] = createRowView(ids[previousIndex], labels[previousIndex]);
+  }
+  views[idx] = createRowView(ids[idx], labels[idx], true);
+  data.version++;
+}
+
+function removeRow(event) {
+  const idx = getRowIndex(event);
+  if (idx < 0) return;
+  if (idx === selectedIndex) {
+    selectedIndex = -1;
+  } else if (selectedIndex > idx) selectedIndex--;
+  ids.splice(idx, 1);
+  labels.splice(idx, 1);
+  views.splice(idx, 1);
+  data.version++;
+}
+
+function buildData(count) {
   const pool = labelPool;
   const size = labelPoolSize;
   const createView = createRowView;
-  const end = start + count;
   let nextId = rowId;
-  ids.length = end;
-  labels.length = end;
-  views.length = end;
-  for (var i = start; i < end; i++) {
+  ids.length = count;
+  labels.length = count;
+  views.length = count;
+  for (var i = 0; i < count; i++) {
     const id = nextId++;
     const label = pool[(Math.random() * size) | 0];
     ids[i] = id;
     labels[i] = label;
-    views[i] = createView(id, label, false);
+    views[i] = createView(id, label);
   }
   rowId = nextId;
-  return [ids, labels, views];
 }
 
 function appendData(count) {
@@ -143,7 +134,7 @@ function appendData(count) {
     const label = pool[(Math.random() * size) | 0];
     ids.push(id);
     labels.push(label);
-    views.push(createView(id, label, false));
+    views.push(createView(id, label));
   }
   rowId = nextId;
 }
@@ -180,7 +171,7 @@ html`<div class="container">
   </div>
   </div>
   <table class="table table-hover table-striped test-data">
-    <tbody @click="${handleRowClick}">
+    <tbody>
       ${() => (data.version, views)}
     </tbody>
   </table>

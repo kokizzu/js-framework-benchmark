@@ -22,7 +22,7 @@
     "url": "https://github.com/krausest/js-framework-benchmark.git"
   },
   "dependencies": {
-    "@arrow-js/core": "1.0.5"
+    "@arrow-js/core": "1.0.6"
   },
   "devDependencies": {
     "esbuild": "0.27.4"
