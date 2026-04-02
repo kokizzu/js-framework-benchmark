@@ -1,11 +1,11 @@
 import Service from '@ember/service';
 import { cell } from '#soon/cell.js';
-import { TrackedArray } from '#soon/array.js';
+import { trackedArray } from '@ember/reactive/collections';
 
 import { run, runLots, add, update, swapRows, deleteRow } from '#utils';
 
 export default class State extends Service {
-  data = new TrackedArray();
+  data = trackedArray();
   id = 1;
   selected = cell(undefined);
 
