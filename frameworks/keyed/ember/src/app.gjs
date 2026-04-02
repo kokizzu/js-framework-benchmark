@@ -4,6 +4,7 @@ import EmberRouter from '@ember/routing/router';
 import config from '#config';
 import { TheTable } from './components/the-table.gjs';
 import { Jumbotron } from './components/jumbotron.gjs';
+import State from './services/state.js';
 
 class Router extends EmberRouter {
   location = config.locationType;
