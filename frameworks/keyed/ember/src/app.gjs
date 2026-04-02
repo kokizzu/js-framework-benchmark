@@ -2,7 +2,6 @@ import Application from '@ember/application';
 import Resolver from 'ember-resolver';
 import EmberRouter from '@ember/routing/router';
 import config from '#config';
-import Router from './router.js';
 import { TheTable } from './components/the-table.gjs';
 import { Jumbotron } from './components/jumbotron.gjs';
 
