@@ -1,5 +1,5 @@
 {
-  "name": "js-framework-benchmark-non-keyed-sprae",
+  "name": "js-framework-benchmark-keyed-sprae",
   "version": "1.0.0",
   "js-framework-benchmark": {
     "frameworkVersionFromPackage": "sprae",

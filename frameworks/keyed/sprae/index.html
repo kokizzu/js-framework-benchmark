@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Sprae-non-keyed</title>
+    <title>Sprae-keyed</title>
     <link href="/css/currentStyle.css" rel="stylesheet" />
   </head>
   <body>
@@ -10,7 +10,7 @@
       <div class="jumbotron">
         <div class="row">
           <div class="col-md-6">
-            <h1>Sprae-non-keyed</h1>
+            <h1>Sprae-keyed</h1>
           </div>
           <div class="col-md-6">
             <div class="row">
@@ -38,13 +38,13 @@
       </div>
       <table class="table table-hover table-striped test-data">
         <tbody id="tbody">
-          <tr :each="item in data" :class="{danger: selected && item.id === selected.id}">
+          <tr :each="item in data" :class="{danger: item.id === selected}">
             <td class="col-md-1" :text="item.id"></td>
             <td class="col-md-4">
-              <a :onclick="select(item)" :text="item.label"></a>
+              <a :onclick="select(item.id)" :text="item.label"></a>
             </td>
             <td class="col-md-1">
-              <a :onclick="remove(item)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+              <a :onclick="remove(item.id)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
             </td>
             <td class="col-md-6"></td>
           </tr>

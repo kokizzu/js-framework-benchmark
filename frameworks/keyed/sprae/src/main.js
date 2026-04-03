@@ -13,19 +13,19 @@ const buildData = (n) => Array.from({ length: n }, () => ({
 
 sprae(document.getElementById('main'), {
   data: [],
-  selected: null,
-  run()      { this.data = buildData(1000); this.selected = null },
-  runLots()  { this.data = buildData(10000); this.selected = null },
+  selected: 0,
+  run()      { this.data = buildData(1000); this.selected = 0 },
+  runLots()  { this.data = buildData(10000); this.selected = 0 },
   add()      { this.data = this.data.concat(buildData(1000)) },
   update()   { for (let i = 0, d = this.data; i < d.length; i += 10) d[i].label += ' !!!' },
-  clear()    { this.data = []; this.selected = null },
+  clear()    { this.data = []; this.selected = 0 },
   swapRows() {
     let d = this.data;
     if (d.length > 998) { let tmp = d[1]; d[1] = d[998]; d[998] = tmp }
   },
-  select(item) { this.selected = item },
-  remove(item) {
-    let idx = this.data.findIndex(d => d.id === item.id);
+  select(id) { this.selected = id },
+  remove(id) {
+    let idx = this.data.findIndex(d => d.id === id);
     this.data.splice(idx, 1);
   }
 });
