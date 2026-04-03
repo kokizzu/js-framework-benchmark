@@ -4,7 +4,9 @@
     "type": "module",
     "js-framework-benchmark": {
         "frameworkVersionFromPackage": "qingkuai",
-        "frameworkHomeURL": "https://qingkuai.dev"
+        "frameworkHomeURL": "https://qingkuai.dev",
+        "language": "JavaScript",
+        "issues": [801]
     },
     "scripts": {
         "dev": "vite",

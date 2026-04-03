@@ -160,20 +160,25 @@ async function runBenchmakLoop(
     }
   }
   if (config.WRITE_RESULTS) {
-    if (benchmarkInfo.type == BenchmarkType.CPU) {
-      await writeResults(benchmarkOptions.resultsDirectory, {
-        framework: framework,
-        benchmark: benchmarkInfo,
-        results: results as CPUBenchmarkResult[],
-        type: BenchmarkType.CPU,
-      });
-    } else {
-      await writeResults(benchmarkOptions.resultsDirectory, {
-        framework: framework,
-        benchmark: benchmarkInfo,
-        results: results as number[],
-        type: BenchmarkType.MEM,
-      });
+    try {
+      if (benchmarkInfo.type == BenchmarkType.CPU) {
+        await writeResults(benchmarkOptions.resultsDirectory, {
+          framework: framework,
+          benchmark: benchmarkInfo,
+          results: results as CPUBenchmarkResult[],
+          type: BenchmarkType.CPU,
+        });
+      } else {
+        await writeResults(benchmarkOptions.resultsDirectory, {
+          framework: framework,
+          benchmark: benchmarkInfo,
+          results: results as number[],
+          type: BenchmarkType.MEM,
+        });
+      }      
+    } catch (e) {
+        console.error(e);
+        errors.push(`Executing ${framework.uri} and benchmark ${benchmarkInfo.id} failed: ` + e);
     }
   }
   return { errors, warnings };
